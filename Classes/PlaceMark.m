@@ -29,7 +29,7 @@ static sqlite3_stmt *insert_statement = nil;
 
 @implementation PlaceMark
 
-@synthesize primaryKey,description,latitude,longitude,pmName,threshold;
+@synthesize primaryKey,description,latitude,longitude,pmName,threshold,distance;
 
 + (NSInteger)insertNewPlaceMarkIntoDatabase:(sqlite3 *)database {
 	if (insert_statement == nil) {
@@ -95,6 +95,7 @@ static sqlite3_stmt *insert_statement = nil;
 			self.latitude = [[NSNumber alloc] initWithDouble:sqlite3_column_double(init_statement, 2)];
 			self.longitude = [[NSNumber alloc] initWithDouble:sqlite3_column_double(init_statement, 3)];
 			self.threshold = sqlite3_column_int(init_statement,4);
+			self.distance = 0;
         } else {
             self.pmName = @"Nothing";
         }

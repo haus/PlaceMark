@@ -24,14 +24,15 @@
 #import <sqlite3.h>
 
 @interface PlaceMark : NSObject {
-	sqlite3   *database;
-	NSString  *pmName;
-	NSString  *description;
-	NSInteger primaryKey;
-	NSNumber *latitude;
-	NSNumber *longitude;
-	NSInteger threshold;
-	BOOL dirty;
+	sqlite3		*database;
+	NSString	*pmName;
+	NSString	*description;
+	NSInteger	primaryKey;
+	NSNumber	*latitude;
+	NSNumber	*longitude;
+	NSInteger	threshold;
+	double		distance;
+	BOOL		dirty;
 }
 
 @property (assign, nonatomic, readonly) NSInteger primaryKey;
@@ -39,6 +40,7 @@
 @property (nonatomic, retain) NSString *description;
 @property (nonatomic, retain) NSNumber *latitude;
 @property (nonatomic, retain) NSNumber *longitude;
+@property (nonatomic) double distance;
 @property (nonatomic) NSInteger threshold;
 
 - (id)initWithPrimaryKey:(NSInteger)pk database:(sqlite3 *)db;

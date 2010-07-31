@@ -40,6 +40,7 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
+/*
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
     // Override point for customization after application launch.
@@ -50,6 +51,7 @@
 
     return YES;
 }
+ */
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	
