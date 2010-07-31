@@ -21,15 +21,24 @@
 //  THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import <sqlite3.h>
+#import "PlaceMark.h"
 
 @interface PlaceMarkAppDelegate : NSObject <UIApplicationDelegate> {
-    
-    UIWindow *window;
-    UINavigationController *navigationController;
+	
+	IBOutlet UIWindow *window;
+	IBOutlet UINavigationController *navigationController;
+	
+	sqlite3 *database;
+	NSMutableArray *placemarks;
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
+@property (nonatomic, retain) UIWindow *window;
+@property (nonatomic, retain) UINavigationController *navigationController;
+@property (nonatomic, retain) NSMutableArray *placemarks;
+
+- (PlaceMark *)addPlaceMark;
+- (void)removePlaceMark:(PlaceMark *) placemark;
 
 @end
 
