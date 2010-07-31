@@ -1,1 +1,3 @@
 *.pbxbtree
+PlaceMark.xcodeproj/*
+build/*
