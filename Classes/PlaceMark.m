@@ -35,7 +35,7 @@ static sqlite3_stmt *insert_statement = nil;
 
 + (NSInteger)insertNewPlaceMarkIntoDatabase:(sqlite3 *)database {
 	if (insert_statement == nil) {
-		static char *sql = "INSERT INTO placemark (pmName, description, latitude, longitude, threshold) VALUES ('New PlaceMark', 'Description, '0', '0', '25')";
+		static char *sql = "INSERT INTO placemark (pmName, description, latitude, longitude, threshold) VALUES ('New PlaceMark', 'Description', '0', '0', '25')";
 		if (sqlite3_prepare_v2(database, sql, -1, &insert_statement, NULL) != SQLITE_OK) {
 			NSAssert1(0, @"Error: failed to prepare statment with message '%s'.", sqlite3_errmsg(database));
 		}

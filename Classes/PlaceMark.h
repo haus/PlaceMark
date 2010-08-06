@@ -25,17 +25,17 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface PlaceMark : NSObject {
-	CLLocationManager *locationManager;
-	CLLocation	*curLocation;
-	sqlite3		*database;
-	NSString	*pmName;
-	NSString	*description;
-	NSInteger	primaryKey;
-	NSNumber	*latitude;
-	NSNumber	*longitude;
-	NSInteger	threshold;
-	double		distance;
-	BOOL		dirty;
+	CLLocationManager	*locationManager;
+	CLLocation			*curLocation;
+	sqlite3				*database;
+	NSString			*pmName;
+	NSString			*description;
+	NSInteger			primaryKey;
+	NSNumber			*latitude;
+	NSNumber			*longitude;
+	NSInteger			threshold;
+	double				distance;
+	BOOL				dirty;
 
 }
 
