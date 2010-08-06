@@ -59,9 +59,9 @@
 }
 
 - (IBAction) updateThreshold:(id)sender {
-	self.placeMark.threshold = (NSInteger) self.pmThreshold;
-	[self.pmThresholdLabel setText:[NSString stringWithFormat:@"%d", self.pmThreshold.value]];
-	[self.placeMark updateThreshold: (NSInteger) pmThreshold];
+	self.placeMark.threshold = (NSInteger) self.pmThreshold.value;
+	[self.placeMark updateThreshold: (NSInteger) self.pmThreshold.value];
+	[self.pmThresholdLabel setText:[NSString stringWithFormat:@"%0.f", self.pmThreshold.value]];
 }
 	
 /*
