@@ -115,7 +115,8 @@ static UIImage *distance3Image = nil;
     
     self.placeMarkNameLabel.text = newPlaceMark.pmName;
     self.placeMarkDistanceImageView.image = [self imageForDistance:newPlaceMark.distance];
-    self.placeMarkDistanceLabel.text = [NSString stringWithFormat:@"%ld", newPlaceMark.distance];
+    self.placeMarkDistanceLabel.text = 
+		(newPlaceMark.distance == -1.0 ? @"Loading..." : [NSString stringWithFormat:@"%.1f", newPlaceMark.distance]);
 	
     [self setNeedsDisplay];
 }
@@ -125,9 +126,9 @@ static UIImage *distance3Image = nil;
 - (void)layoutSubviews {
     
 #define LEFT_COLUMN_OFFSET 1
-#define LEFT_COLUMN_WIDTH 50
+#define LEFT_COLUMN_WIDTH 75
 	
-#define RIGHT_COLUMN_OFFSET 75
+#define RIGHT_COLUMN_OFFSET 90
 #define RIGHT_COLUMN_WIDTH 240
 	
 #define UPPER_ROW_TOP 4

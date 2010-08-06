@@ -35,6 +35,8 @@
 @synthesize window;
 @synthesize navigationController;
 @synthesize placemarks;
+@synthesize locationManager;
+@synthesize curLocation;
 
 
 #pragma mark -
@@ -54,7 +56,8 @@
  */
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	
+	// Start the location manager.
+	[[self locationManager] startUpdatingLocation];
 	[self createEditableCopyOfDatabaseIfNeeded];
 	[self initializeDatabase];
 	
@@ -93,6 +96,7 @@
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+	self.locationManager = nil;
 	// Save data if appropriate
 	[placemarks makeObjectsPerformSelector:@selector(dehydrate)];
 }
@@ -109,6 +113,7 @@
 
 
 - (void)dealloc {
+	[locationManager release];
 	[navigationController release];
 	[window release];
 	[super dealloc];
@@ -116,7 +121,6 @@
 
 - (id)init {
 	if (self = [super init]) {
-		// 
 	}
 	return self;
 }
@@ -132,10 +136,26 @@
 
 - (PlaceMark *) addPlaceMark {
 	NSInteger primaryKey = [PlaceMark insertNewPlaceMarkIntoDatabase:database];
-	PlaceMark *newPlaceMark = [[PlaceMark alloc] initWithPrimaryKey:primaryKey database:database];
+	PlaceMark *newPlaceMark = [[PlaceMark alloc] initWithPrimaryKey:primaryKey database:database locationManager:locationManager location:curLocation];
 	
 	[placemarks addObject:newPlaceMark];
 	return newPlaceMark;
+}
+
+/**
+ Return a location manager -- create one if necessary.
+ */
+- (CLLocationManager *)locationManager {
+	
+    if (locationManager != nil) {
+		return locationManager;
+	}
+	
+	locationManager = [[CLLocationManager alloc] init];
+	[locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
+	[locationManager setDelegate:self];
+	
+	return locationManager;
 }
 
 // Creates a writable copy of the bundled default database in the application Documents directory.
@@ -183,7 +203,7 @@
                 // actual memory management - at the end of this block of code, all the book objects allocated
                 // here will be in memory regardless of whether we use autorelease or release, because they are
                 // retained by the books array.
-                PlaceMark *pm = [[PlaceMark alloc] initWithPrimaryKey:primaryKey database:database];
+                PlaceMark *pm = [[PlaceMark alloc] initWithPrimaryKey:primaryKey database:database locationManager:locationManager location:curLocation];
 				
                 [placemarks addObject:pm];
                 [pm release];
@@ -196,6 +216,58 @@
         sqlite3_close(database);
         NSAssert1(0, @"Failed to open database with message '%s'.", sqlite3_errmsg(database));
         // Additional error handling, as appropriate...
+    }
+}
+
+/*
+ * We want to get and store a location measurement that meets the desired accuracy. For this example, we are
+ *      going to use horizontal accuracy as the deciding factor. In other cases, you may wish to use vertical
+ *      accuracy, or both together.
+ */
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    // test the age of the location measurement to determine if the measurement is cached
+    // in most cases you will not want to rely on cached measurements
+    NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
+    if (locationAge > 5.0) return;
+    // test that the horizontal accuracy does not indicate an invalid measurement
+    if (newLocation.horizontalAccuracy < 0) return;
+    // test the measurement to see if it is more accurate than the previous measurement
+    if (curLocation == nil || curLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
+        // store the location as the "best effort"
+        self.curLocation = newLocation;
+        // test the measurement to see if it meets the desired accuracy
+        //
+        // IMPORTANT!!! kCLLocationAccuracyBest should not be used for comparison with location coordinate or altitidue 
+        // accuracy because it is a negative value. Instead, compare against some predetermined "real" measure of 
+        // acceptable accuracy, or depend on the timeout to stop updating. This sample depends on the timeout.
+        //
+        if (newLocation.horizontalAccuracy <= locationManager.desiredAccuracy) {
+            // we have a measurement that meets our requirements, so we can stop updating the location
+            // 
+            // IMPORTANT!!! Minimize power usage by stopping the location manager as soon as possible.
+            //
+            //[[self locationManager] stopUpdatingLocation:NSLocalizedString(@"Acquired Location", @"Acquired Location")];
+            // we can also cancel our previous performSelector:withObject:afterDelay: - it's no longer necessary
+            //[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopUpdatingLocation:) object:nil];
+        }
+		
+		for (PlaceMark *pm in placemarks) {
+			[pm setLocation:curLocation];
+			[pm updateDistance];
+		}
+		
+		//[navigationController popToRootViewControllerAnimated:YES];
+    }
+    // update the display with the new location data
+    //[RootViewController tableView reloadData];    
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    // The location "unknown" error simply means the manager is currently unable to get the location.
+    // We can ignore this error for the scenario of getting a single location fix, because we already have a 
+    // timeout that will stop the location manager to save power.
+    if ([error code] != kCLErrorLocationUnknown) {
+        [[self locationManager] stopUpdatingLocation:NSLocalizedString(@"Error", @"Error")];
     }
 }
 

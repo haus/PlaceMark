@@ -21,6 +21,8 @@
 //  THE SOFTWARE.
 
 #import "PlaceMark.h"
+#import <CoreLocation/CoreLocation.h>
+#import <math.h>
 
 static sqlite3_stmt *init_statement = nil;
 static sqlite3_stmt *dehydrate_statment = nil;
@@ -29,7 +31,7 @@ static sqlite3_stmt *insert_statement = nil;
 
 @implementation PlaceMark
 
-@synthesize primaryKey,description,latitude,longitude,pmName,threshold,distance;
+@synthesize primaryKey,description,latitude,longitude,pmName,threshold,distance,curLocation;
 
 + (NSInteger)insertNewPlaceMarkIntoDatabase:(sqlite3 *)database {
 	if (insert_statement == nil) {
@@ -70,10 +72,25 @@ static sqlite3_stmt *insert_statement = nil;
 	sqlite3_reset(delete_statement);
 }
 
+- (double)getDistance {
+	// If it's not possible to get a location, then return.
+	if (self.curLocation == nil) {
+		return -1;
+	}
+	
+	// Configure the new event with information from the location.
+	CLLocation *entryLoc = [[CLLocation alloc] initWithLatitude:[self.latitude doubleValue] longitude:[self.longitude doubleValue]];
+	
+	double distance = [self.curLocation distanceFromLocation: entryLoc] / 1000;
+	
+	return distance;
+}
 
-- (id)initWithPrimaryKey:(NSInteger)pk database:(sqlite3 *)db {
+- (id)initWithPrimaryKey:(NSInteger)pk database:(sqlite3 *)db locationManager:(CLLocationManager *)lm location:(CLLocation *) curLoc {
 	
 	if (self = [super init]) {
+		locationManager = lm;
+		curLocation = curLoc;
         primaryKey = pk;
         database = db;
         // Compile the query for retrieving book data. See insertNewBookIntoDatabase: for more detail.
@@ -95,7 +112,7 @@ static sqlite3_stmt *insert_statement = nil;
 			self.latitude = [[NSNumber alloc] initWithDouble:sqlite3_column_double(init_statement, 2)];
 			self.longitude = [[NSNumber alloc] initWithDouble:sqlite3_column_double(init_statement, 3)];
 			self.threshold = sqlite3_column_int(init_statement,4);
-			self.distance = 0;
+			self.distance = [self getDistance];
         } else {
             self.pmName = @"Nothing";
         }
@@ -127,6 +144,14 @@ static sqlite3_stmt *insert_statement = nil;
 
 - (void)updateDescription {
 	dirty = YES;
+}
+
+- (void)updateDistance {
+	self.distance = [self getDistance];
+}
+
+- (void)setLocation:(CLLocation *) curLoc {
+	self.curLocation = curLoc;
 }
 
 - (void) dehydrate {

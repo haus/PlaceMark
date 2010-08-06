@@ -22,35 +22,38 @@
 
 #import "RootViewController.h"
 #import "PlaceMarkAppDelegate.h"
+#import "PlaceMarkViewController.h"
 #import "PlaceMarkCell.h"
 #import "PlaceMark.h"
 
 
 @implementation RootViewController
 
+@synthesize placeMarkView;
+
 
 #pragma mark -
 #pragma mark View lifecycle
 
-/*
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+	
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-*/
 
-/*
+
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+	[super viewWillAppear:animated];
+	[self.tableView reloadData];
 }
-*/
-/*
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+	[self.tableView reloadData];
 }
-*/
+
 /*
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];

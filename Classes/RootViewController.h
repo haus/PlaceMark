@@ -21,8 +21,12 @@
 //  THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "PlaceMarkViewController.h"
 
 @interface RootViewController : UITableViewController {
+	PlaceMarkViewController *placeMarkView;
 }
+
+@property (nonatomic, retain) PlaceMarkViewController *placeMarkView;
 
 @end

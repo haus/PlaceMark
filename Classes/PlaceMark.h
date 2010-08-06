@@ -22,8 +22,11 @@
 
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface PlaceMark : NSObject {
+	CLLocationManager *locationManager;
+	CLLocation	*curLocation;
 	sqlite3		*database;
 	NSString	*pmName;
 	NSString	*description;
@@ -33,6 +36,7 @@
 	NSInteger	threshold;
 	double		distance;
 	BOOL		dirty;
+
 }
 
 @property (assign, nonatomic, readonly) NSInteger primaryKey;
@@ -40,15 +44,18 @@
 @property (nonatomic, retain) NSString *description;
 @property (nonatomic, retain) NSNumber *latitude;
 @property (nonatomic, retain) NSNumber *longitude;
+@property (nonatomic, retain) CLLocation * curLocation;
 @property (nonatomic) double distance;
 @property (nonatomic) NSInteger threshold;
 
-- (id)initWithPrimaryKey:(NSInteger)pk database:(sqlite3 *)db;
+- (id)initWithPrimaryKey:(NSInteger)pk database:(sqlite3 *)db locationManager:(CLLocationManager *)locationManager location:(CLLocation *)curLocation;
 - (void)updateThreshold:(NSInteger) newThreshold;
 - (void)updateLat:(NSNumber *) newLatitude;
 - (void)updateLong:(NSNumber *) newLongitude;
 - (void)updateName;
 - (void)updateDescription;
+- (void)updateDistance;
+- (double)getDistance;
 - (void)dehydrate;
 - (void)deleteFromDatabase;
 + (NSInteger)insertNewPlaceMarkIntoDatabase:(sqlite3 *) database;
