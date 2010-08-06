@@ -52,7 +52,7 @@
 - (void)updateThreshold:(NSInteger) newThreshold;
 - (void)updateLat:(NSNumber *) newLatitude;
 - (void)updateLong:(NSNumber *) newLongitude;
-- (void)updateName;
+- (void)updateName:(NSString *) newString;
 - (void)updateDescription;
 - (void)updateDistance;
 - (double)getDistance;

@@ -128,13 +128,17 @@
 	self.placeMarkView.placeMark = pm;
 	self.placeMarkView.title = pm.pmName;
 	[self.placeMarkView.pmName setText:pm.pmName];
+	[self.placeMarkView.pmDescription setText:pm.description];
+	[self.placeMarkView.pmLatitude setText:[pm.latitude stringValue]];
+	[self.placeMarkView.pmLongitude setText:[pm.longitude stringValue]];
 	
 	NSInteger threshold = pm.threshold;
 	if (threshold > 250 || threshold < 0) {
 		threshold = 25;
 	}
-	
-	[self.placeMarkView.pmThreshold setValue:threshold];
+
+	[self.placeMarkView.pmThreshold setValue:pm.threshold];
+	[self.placeMarkView.pmThresholdLabel setText:[NSString stringWithFormat:@"%d", pm.threshold]];
 }
 
 // Customize the appearance of table view cells.

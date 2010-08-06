@@ -35,7 +35,7 @@ static sqlite3_stmt *insert_statement = nil;
 
 + (NSInteger)insertNewPlaceMarkIntoDatabase:(sqlite3 *)database {
 	if (insert_statement == nil) {
-		static char *sql = "INSERT INTO placemark (pmName, description, latitude, longitude, threshold) VALUES ('New PlaceMark', 'Description', '0', '0', '25')";
+		static char *sql = "INSERT INTO placemark (pmName, description, latitude, longitude, threshold) VALUES ('New PlaceMark', 'Description', '37.75', '-122.5', '25')";
 		if (sqlite3_prepare_v2(database, sql, -1, &insert_statement, NULL) != SQLITE_OK) {
 			NSAssert1(0, @"Error: failed to prepare statment with message '%s'.", sqlite3_errmsg(database));
 		}
@@ -80,10 +80,11 @@ static sqlite3_stmt *insert_statement = nil;
 	
 	// Configure the new event with information from the location.
 	CLLocation *entryLoc = [[CLLocation alloc] initWithLatitude:[self.latitude doubleValue] longitude:[self.longitude doubleValue]];
+
 	
 	double distance = [self.curLocation distanceFromLocation: entryLoc] / 1000;
 	
-	return distance;
+	return (distance * 0.621371192);
 }
 
 - (id)initWithPrimaryKey:(NSInteger)pk database:(sqlite3 *)db locationManager:(CLLocationManager *)lm location:(CLLocation *) curLoc {
@@ -138,7 +139,8 @@ static sqlite3_stmt *insert_statement = nil;
 	dirty = YES;
 }
 
-- (void)updateName {
+- (void)updateName:(NSString *)newName {
+	self.pmName = newName;
 	dirty = YES;
 }
 

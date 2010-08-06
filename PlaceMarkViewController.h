@@ -32,6 +32,7 @@
 	IBOutlet UITextField		*pmDescription;
 	IBOutlet UITextField		*pmLatitude;
 	IBOutlet UITextField		*pmLongitude;
+	IBOutlet UILabel			*pmThresholdLabel;
 	IBOutlet UISlider			*pmThreshold;
 	PlaceMark					*placeMark;
 }
@@ -40,6 +41,7 @@
 @property(nonatomic,retain) IBOutlet UITextField		*pmDescription;
 @property(nonatomic,retain) IBOutlet UITextField		*pmLatitude;
 @property(nonatomic,retain) IBOutlet UITextField		*pmLongitude;
+@property(nonatomic,retain)	IBOutlet UILabel			*pmThresholdLabel;
 @property(nonatomic,retain) IBOutlet UISlider			*pmThreshold;
 @property(nonatomic,retain) PlaceMark					*placeMark;
 

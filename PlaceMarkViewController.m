@@ -29,7 +29,7 @@
 
 @implementation PlaceMarkViewController
 
-@synthesize pmName, pmDescription, pmLatitude, pmLongitude, pmThreshold, placeMark;
+@synthesize pmName, pmDescription, pmLatitude, pmLongitude, pmThreshold, pmThresholdLabel, placeMark;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -40,7 +40,7 @@
 
 - (IBAction) updateName:(id)sender {
 	self.placeMark.pmName = self.pmName.text;
-	[self.placeMark updateName];
+	[self.placeMark updateName:self.pmName.text];
 }
 
 - (IBAction) updateDescription:(id)sender {
@@ -60,7 +60,8 @@
 
 - (IBAction) updateThreshold:(id)sender {
 	self.placeMark.threshold = (NSInteger) self.pmThreshold;
-	[self.placeMark updateThreshold:pmThreshold];
+	[self.pmThresholdLabel setText:[NSString stringWithFormat:@"%d", self.pmThreshold.value]];
+	[self.placeMark updateThreshold: (NSInteger) pmThreshold];
 }
 	
 /*
