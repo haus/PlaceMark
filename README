@@ -1,12 +1,24 @@
 PlaceMark
 
-Created by Matthaus Litteken on 7/15/10.
+Github Page: http://github.com/mlitteken/PlaceMark
+Project Page: http://web.cecs.pdx.edu/~matthaus/
+Git Repository: git://github.com/mlitteken/PlaceMark.git
+
+Created by Matthaus Litteken on 7/01/10.
 Copyright (c) 2010 Matthaus Litteken
 
 Main Sections
 I. License
 II. Bug Tracking
 III. Development
+IV. Software Overview
+
+*****************************************************************************
+************************** I. LICENSE ***************************************
+*****************************************************************************
+
+Created by Matthaus Litteken on 7/01/10.
+Copyright (c) 2010 Matthaus Litteken
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,3 +36,37 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+*****************************************************************************
+************************** II. BUG TRACKING *********************************
+*****************************************************************************
+
+This software is currently in development and even when released, will still
+be being developed. If you notice any bugs or software issues, please use
+the issue tracker on GitHub or the Trac issue tracker linked from the project
+page.
+
+*****************************************************************************
+************************** III. DEVELOPMENT *********************************
+*****************************************************************************
+
+If you are interested in helping to develop this software, have feature
+requests or ideas, please email me at the following address:
+matthaus at pdx dot edu
+Make sure to mention the application name in the subject so I don't think
+it's spam.
+
+*****************************************************************************
+************************** IV. SOFTWARE OVERVIEW ****************************
+*****************************************************************************
+
+PlaceMark© is a simple iPhone app written in Objective-C that will allow users 
+to mark places as small or smaller than a city to visit someday. They get to 
+set both distance and time based alerts. Distance based alerts will alert them 
+whenever they are within that distance of the place or after the set time. The 
+application will need to continue running in the background, periodically 
+checking distances. Because of this, multitasking is essential, so the app will 
+need iPhone 4 or later and GPS to run. PlaceMark is released under the MIT open 
+source license.
+
+The app may run on iPod touch and iPad, but it has only been tested on the 
+iPhone simulator in the iPhone SDK to date.
