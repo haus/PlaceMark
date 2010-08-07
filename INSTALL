@@ -1,0 +1,7 @@
+To build the application, simply download the latest source from github or clone the git repository. Then load the project into Xcode and build and run it from there. To build the application, the system will likely need to be running OS X 10.5 or 10.6. Xcode and the iPhone simulator are available from the Apple web site.
+
+To download the latest source, run git clone on the following repository.
+Git Repository:
+git://github.com/mlitteken/PlaceMark.git
+
+It should include all necessary project files to build the application.
