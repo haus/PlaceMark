@@ -60,7 +60,6 @@
     [super viewDidAppear:animated];
 	[self.tableView reloadData];
 }
-
 /*
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];

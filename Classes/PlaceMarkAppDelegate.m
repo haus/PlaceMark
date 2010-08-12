@@ -255,11 +255,7 @@
 			[pm setLocation:curLocation];
 			[pm updateDistance];
 		}
-		
-		//[navigationController popToRootViewControllerAnimated:YES];
     }
-    // update the display with the new location data
-    //[RootViewController tableView reloadData];    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
