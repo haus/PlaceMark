@@ -35,7 +35,7 @@
 @property (nonatomic, retain) UILabel     *placeMarkNameLabel;
 @property (nonatomic, retain) UIImageView *placeMarkDistanceImageView;
 
-- (UIImage *)imageForDistance:(double) distance;
+- (UIImage *)imageForDistance:(double) distance:(NSInteger *) thresh;
 
 - (PlaceMark *)placemark;
 - (void)setPlaceMark:(PlaceMark *)newPlaceMark;

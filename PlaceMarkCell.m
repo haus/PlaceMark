@@ -114,7 +114,7 @@ static UIImage *distance3Image = nil;
     placemark = newPlaceMark;
     
     self.placeMarkNameLabel.text = newPlaceMark.pmName;
-    self.placeMarkDistanceImageView.image = [self imageForDistance:newPlaceMark.distance];
+    self.placeMarkDistanceImageView.image = [self imageForDistance:newPlaceMark.distance:newPlaceMark.threshold];
     self.placeMarkDistanceLabel.text = 
 		(newPlaceMark.distance == -1.0 ? @"Loading..." : [NSString stringWithFormat:@"%.1f", newPlaceMark.distance]);
 	
@@ -184,12 +184,13 @@ static UIImage *distance3Image = nil;
 	return newLabel;
 }
 
-- (UIImage *)imageForDistance:(double) distance {
-	if (distance < 50) {
+- (UIImage *)imageForDistance:(double) distance:(NSInteger *) thresh {
+	double threshold = [[[NSNumber alloc] initWithInt: thresh] doubleValue];
+	if ((distance / threshold) < 2) {
 		return distance3Image;
-	} else if (distance < 100) {
+	} else if ((distance / threshold) < 5) {
 		return distance2Image;
-	} else if (distance <= 250) {
+	} else if ((distance / threshold) > 5) {
 		return distance1Image;
 	} else {
 		return nil;
