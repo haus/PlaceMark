@@ -48,6 +48,9 @@
 	UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithTitle:@"Add" 
 															style:UIBarButtonItemStyleBordered target:self action:@selector(addPlaceMark:)];
 	self.navigationItem.rightBarButtonItem = btn;
+	
+	id appDelegate = [[UIApplication sharedApplication]delegate];
+	[appDelegate setRootView: self.tableView];
 }
 
 

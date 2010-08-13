@@ -37,6 +37,7 @@
 @synthesize placemarks;
 @synthesize locationManager;
 @synthesize curLocation;
+@synthesize rootView;
 
 
 #pragma mark -
@@ -256,6 +257,7 @@
 			[pm updateDistance];
 		}
     }
+	[self.rootView reloadData];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {

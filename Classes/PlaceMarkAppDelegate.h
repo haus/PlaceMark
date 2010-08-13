@@ -35,6 +35,8 @@
 	CLLocationManager *locationManager;
 	CLLocation *curLocation;
 	
+	IBOutlet UIView *rootView;
+	
 }
 
 @property (nonatomic, retain) UIWindow *window;
@@ -42,6 +44,7 @@
 @property (nonatomic, retain) NSMutableArray *placemarks;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) CLLocation *curLocation;
+@property (nonatomic, retain) UIView *rootView;
 
 - (PlaceMark *)addPlaceMark;
 - (void)removePlaceMark:(PlaceMark *) placemark;
