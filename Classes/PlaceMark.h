@@ -53,6 +53,7 @@
 - (void)updateLat:(NSNumber *) newLatitude;
 - (void)updateLong:(NSNumber *) newLongitude;
 - (void)updateName:(NSString *) newString;
+- (void)setLocation:(CLLocation *)curLocation;
 - (void)updateDescription;
 - (void)updateDistance;
 - (double)getDistance;

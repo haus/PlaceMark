@@ -140,6 +140,7 @@
 	PlaceMark *newPlaceMark = [[PlaceMark alloc] initWithPrimaryKey:primaryKey database:database locationManager:locationManager location:curLocation];
 	
 	[placemarks addObject:newPlaceMark];
+	[self.rootView reloadData];
 	return newPlaceMark;
 }
 

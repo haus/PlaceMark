@@ -51,11 +51,13 @@
 - (IBAction) updateLatitude:(id)sender {
 	self.placeMark.latitude = [[NSNumber alloc] initWithDouble: [self.pmLatitude.text doubleValue]];
 	[self.placeMark updateLat:[[NSNumber alloc] initWithDouble: [pmLatitude.text doubleValue]]];
+	[self.placeMark updateDistance];
 }
 
 - (IBAction) updateLongitude:(id)sender {
 	self.placeMark.longitude = [[NSNumber alloc] initWithDouble: [self.pmLongitude.text doubleValue]];
 	[self.placeMark updateLong:[[NSNumber alloc] initWithDouble:[pmLongitude.text doubleValue]]];
+	[self.placeMark updateDistance];
 }
 
 - (IBAction) updateThreshold:(id)sender {

@@ -55,13 +55,14 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
 	[self.tableView reloadData];
+	[super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
 	[self.tableView reloadData];
+    [super viewDidAppear:animated];
+
 }
 /*
 - (void)viewWillDisappear:(BOOL)animated {
